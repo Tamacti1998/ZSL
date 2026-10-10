@@ -19,5 +19,12 @@
         "operating_system": "Android",
         "price": 2000,
         "color": "Blue"
+    },
+    {
+        "brand": "Nokia",
+        "model": "3310",
+        "operating_system": "Android",
+        "price": 2000,
+        "color": "Blue"
     }
 ]
