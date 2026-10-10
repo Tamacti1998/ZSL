@@ -1,0 +1,23 @@
+[
+    {
+        "brand": "Apple",
+        "model": "Iphone 17 pro max",
+        "operating_system": "IOS",
+        "price": 1500,
+        "color": "Orange"
+    },
+    {
+        "brand": "Apple",
+        "model": "Iphone 17 pro max",
+        "operating_system": "IOS",
+        "price": 1500,
+        "color": "Orange"
+    },
+    {
+        "brand": "Samsung",
+        "model": "S25",
+        "operating_system": "Android",
+        "price": 2000,
+        "color": "Blue"
+    }
+]
