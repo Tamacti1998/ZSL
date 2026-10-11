@@ -1,30 +1,34 @@
 [
     {
+        "id": 1,
         "brand": "Apple",
-        "model": "Iphone 17 pro max",
+        "model": "Iphone 17 pro",
         "operating_system": "IOS",
-        "price": 1500,
+        "price": 1400,
         "color": "Orange"
     },
     {
-        "brand": "Apple",
-        "model": "Iphone 17 pro max",
-        "operating_system": "IOS",
-        "price": 1500,
-        "color": "Orange"
-    },
-    {
-        "brand": "Samsung",
-        "model": "S25",
-        "operating_system": "Android",
-        "price": 2000,
-        "color": "Blue"
-    },
-    {
+        "id": 3,
         "brand": "Nokia",
         "model": "3310",
-        "operating_system": "Android",
-        "price": 2000,
-        "color": "Blue"
+        "operating_system": "Symbian OS",
+        "price": 1000,
+        "color": "black"
+    },
+    {
+        "id": 1,
+        "brand": "Apple",
+        "model": "Iphone 17",
+        "operating_system": "IOS",
+        "price": 1500,
+        "color": "Violet"
+    },
+    {
+        "id": 1,
+        "brand": "Apple",
+        "model": "Iphone 17",
+        "operating_system": "IOS",
+        "price": 1500,
+        "color": "Violet"
     }
 ]
