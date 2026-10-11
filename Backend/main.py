@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from pathlib import Path
 import json
+from models import Phone, User
 
 file_path = Path("profile.json")
 
@@ -32,15 +33,15 @@ def initial():
     ]
     return students
 
-class profile(BaseModel):
-    id : str
-    name : str
-    major : str
-    grad_year : str
+# class profile(BaseModel):
+#     id : str
+#     name : str
+#     major : str
+#     grad_year : str
 
 
 @app.post("/learners")
-def info(student: profile):
+def info(student: User):
     data = student.model_dump()  # model_dump() converts pydantic model to python dictionary
     students.append(data)
     return data 
@@ -56,16 +57,16 @@ def info(student: profile):
     #     }      
     # }
 
-class phone(BaseModel):
-    id : int
-    brand : str
-    model : str
-    operating_system : str
-    price : int
-    color : str
+# class phone(BaseModel):
+#     id : int
+#     brand : str
+#     model : str
+#     operating_system : str
+#     price : int
+#     color : str
 
 @app.post("/post_phones")
-def mobile(p_type : phone):
+def mobile(p_type : Phone):
     if file_path.exists():
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -85,7 +86,7 @@ def mobile(p_type : phone):
 
 # PUT Request - basically used to update exisiting data/field or replace it with new data.
 @app.put("/update_phones/{id}")
-def mobile(p_type : phone, id : int):
+def mobile(p_type : Phone, id : int):
     if file_path.exists():
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -112,7 +113,7 @@ def mobile(p_type : phone, id : int):
 
 #PATCH Request - allows to update specific field of an existing data
 @app.patch("/patch_phones/{id}")
-def mobile(p_type : phone, id : int):
+def mobile(p_type : Phone, id : int):
     if file_path.exists():
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
