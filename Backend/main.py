@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from pathlib import Path
 import json
-from models import Phone, User
+# from models import Phone, User
 
 file_path = Path("profile.json")
 
@@ -33,15 +33,15 @@ def initial():
     ]
     return students
 
-# class profile(BaseModel):
-#     id : str
-#     name : str
-#     major : str
-#     grad_year : str
+class profile(BaseModel):
+    id : str
+    name : str
+    major : str
+    grad_year : str
 
 
 @app.post("/learners")
-def info(student: User):
+def info(student: profile):
     data = student.model_dump()  # model_dump() converts pydantic model to python dictionary
     students.append(data)
     return data 
@@ -57,16 +57,24 @@ def info(student: User):
     #     }      
     # }
 
-# class phone(BaseModel):
-#     id : int
-#     brand : str
-#     model : str
-#     operating_system : str
-#     price : int
-#     color : str
+class phone(BaseModel):
+    id : int
+    brand : str
+    model : str
+    operating_system : str
+    price : int
+    color : str
+
+class user_phone(BaseModel):
+    id : int | None = None
+    brand : str | None = None
+    model : str | None = None
+    operating_system : str | None = None
+    price : int | None = None
+    color : str | None = None
 
 @app.post("/post_phones")
-def mobile(p_type : Phone):
+def mobile(p_type : phone):
     if file_path.exists():
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -86,7 +94,7 @@ def mobile(p_type : Phone):
 
 # PUT Request - basically used to update exisiting data/field or replace it with new data.
 @app.put("/update_phones/{id}")
-def mobile(p_type : Phone, id : int):
+def mobile(p_type : phone, id : int):
     if file_path.exists():
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -113,25 +121,25 @@ def mobile(p_type : Phone, id : int):
 
 #PATCH Request - allows to update specific field of an existing data
 @app.patch("/patch_phones/{id}")
-def mobile(p_type : Phone, id : int):
+def mobile(p_type : user_phone, id : int):
     if file_path.exists():
         with open(file_path, "r", encoding="utf-8") as f:
             data = json.load(f)
     else:
         data = []
 
-    updated_data = p_type.model_dump()
+    updated_data = p_type.model_dump(exclude_unset=True)
 
     for idx, item in enumerate(data):
         if item["id"] == id:
-            data[idx] = updated_data
+            data[idx].update(updated_data)
 
             with open(file_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent = 4)
 
             return {
                 "text" : "Phone info updated successfully",
-                "data" : updated_data
+                "data" : data[idx]
             }
         
     return {

@@ -1,10 +1,10 @@
 [
     {
-        "id": 1,
+        "id": 2,
         "brand": "Apple",
-        "model": "Iphone 17 pro",
+        "model": "Iphone 16 pro max",
         "operating_system": "IOS",
-        "price": 1400,
+        "price": 1200,
         "color": "Orange"
     },
     {
@@ -12,15 +12,15 @@
         "brand": "Nokia",
         "model": "3310",
         "operating_system": "Symbian OS",
-        "price": 1000,
+        "price": 600,
         "color": "black"
     },
     {
-        "id": 1,
+        "id": 4,
         "brand": "Apple",
-        "model": "Iphone 17",
+        "model": "Iphone 17 pro max",
         "operating_system": "IOS",
-        "price": 1500,
+        "price": 1900,
         "color": "Violet"
     },
     {
@@ -30,5 +30,13 @@
         "operating_system": "IOS",
         "price": 1500,
         "color": "Violet"
+    },
+    {
+        "id": 5,
+        "brand": "Samsung",
+        "model": "A50",
+        "operating_system": "Android",
+        "price": 800,
+        "color": "Blueish black"
     }
 ]
