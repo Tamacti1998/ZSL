@@ -1,8 +1,11 @@
 from fastapi import FastAPI
+from fastapi import Depends
 from pydantic import BaseModel
 from pathlib import Path
 import json
-# from models import Phone, User
+from DB import get_db
+from models import Movies
+
 
 file_path = Path("profile.json")
 
@@ -168,4 +171,26 @@ def mobile(id : int):
         
     return {
         "text" : "Phone info not found"
+    }
+
+class watchlist(BaseModel):
+    title : str
+    genre : str
+    rating : float
+    views : float
+    release_year : int
+
+app.post("/post_movies")
+def movie_added(m : watchlist, db = Depends(get_db)):
+    c_data_j = m.model_dump()
+    sql_data = Movies(**c_data_j)
+
+    db.add(sql_data)
+    db.commit()
+    db.refresh(sql_data)
+    
+    # Here you can add logic to save the movie_data to the database or perform any other operations
+    return {
+        "text" : "Movie info saved successfully",
+        "data" : sql_data
     }

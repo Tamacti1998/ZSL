@@ -6,21 +6,21 @@ class Base(DeclarativeBase):
     pass
 
 
-class Phone(Base):
-    __tablename__ = "Phones"
+class Movies(Base):
+    __tablename__ = "Movie_Watchlist"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    brand: Mapped[str] = mapped_column(String(100))
-    model: Mapped[str] = mapped_column(String(100))
-    operating_system: Mapped[str] = mapped_column(String(100))
-    price: Mapped[int]
-    color: Mapped[str] = mapped_column(String(100))
+    id : Mapped[int] = mapped_column(primary_key=True)
+    title: Mapped[str] = mapped_column(String(100))
+    genre: Mapped[str] = mapped_column(String(100))
+    rating: Mapped[float]
+    views: Mapped[float] 
+    release_year: Mapped[int]
 
-class User(Base):
-    __tablename__ = "Users"
+# class User(Base):
+#     __tablename__ = "Users"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(String(100))
-    email: Mapped[str] = mapped_column(String(100))
-    age: Mapped[int]
+#     id: Mapped[int] = mapped_column(primary_key=True)
+#     username: Mapped[str] = mapped_column(String(100))
+#     email: Mapped[str] = mapped_column(String(100))
+#     age: Mapped[int]
 

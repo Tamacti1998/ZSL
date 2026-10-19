@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, text
 from models import Base
+from sqlalchemy.orm import sessionmaker
 
 DATABASE_URL = "postgresql+psycopg://postgres:Ceratophyllun98@localhost:5432/aplhadb"
 
@@ -10,3 +11,16 @@ with engine.connect() as connection:
     print(result.scalar())
 
 Base.metadata.create_all(engine)
+
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
