@@ -38,5 +38,13 @@
         "operating_system": "Android",
         "price": 800,
         "color": "Blueish black"
+    },
+    {
+        "id": 6,
+        "brand": "Samsung",
+        "model": "A04e",
+        "operating_system": "Android",
+        "price": 1000,
+        "color": "Purple"
     }
 ]

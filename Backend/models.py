@@ -14,7 +14,7 @@ class Movies(Base):
     genre: Mapped[str] = mapped_column(String(100))
     rating: Mapped[float]
     views: Mapped[float] 
-    release_year: Mapped[int]
+    release_year: Mapped[str]
 
 # class User(Base):
 #     __tablename__ = "Users"

@@ -149,6 +149,7 @@ def mobile(p_type : user_phone, id : int):
         "text" : "Phone info not found"
     }
 
+
 @app.delete("/delete_phones/{id}")
 def mobile(id : int):
     if file_path.exists():
@@ -178,9 +179,9 @@ class watchlist(BaseModel):
     genre : str
     rating : float
     views : float
-    release_year : int
+    release_year : str
 
-app.post("/post_movies")
+@app.post("/post_movies")
 def movie_added(m : watchlist, db = Depends(get_db)):
     c_data_j = m.model_dump()
     sql_data = Movies(**c_data_j)
@@ -194,3 +195,79 @@ def movie_added(m : watchlist, db = Depends(get_db)):
         "text" : "Movie info saved successfully",
         "data" : sql_data
     }
+
+# This to retrieve single data from the database using id
+@app.get("/retrieve_movies/{id}")
+def movie_retrieve(id : int, db = Depends(get_db)):
+    movie_data = db.query(Movies).filter(Movies.id == id).first()
+
+    if movie_data:
+        return {
+            "text" : "Movie info retrieved successfully",
+            "data" : movie_data
+        }
+    else:
+        return {
+            "text" : "Movie info not found"
+        }
+
+# This retrieve all the data from the database
+@app.get("/get_movies")
+def get_movies(db = Depends(get_db)):
+    movies = db.query(Movies).all()
+    return {
+        "text" : "Movies retrieved successfully",
+        "data" : movies
+    }
+
+# This update the entire/section data of a movie in the database using id
+@app.put("/update_movies/{id}")
+def movie_update(id : int, m : watchlist, db = Depends(get_db)):
+    movie_data = db.query(Movies).filter(Movies.id == id).first()
+
+    if movie_data:
+        update_data = m.model_dump()
+        for key, value in update_data.items():
+            setattr(movie_data, key, value)
+
+        db.commit()
+        db.refresh(movie_data)
+
+        return {
+            "text" : "Movie info updated successfully",
+            "data" : movie_data
+        }
+    else:
+        return {
+            "text" : "Movie info not found"
+        }
+
+
+class movie_checklist(BaseModel):
+    title : str | None = None
+    genre : str | None = None
+    rating : float | None = None
+    views : float | None = None
+    release_year : str | None = None
+
+# This update specific field of a movie in the database using id
+@app.patch("/patch_movies/{id}")
+def movie_repair(id : int, m : movie_checklist, db = Depends(get_db)):
+    movie_data = db.query(Movies).filter(Movies.id == id).first()
+
+    if movie_data:
+        update_data = m.model_dump(exclude_unset=True)
+        for key, value in update_data.items():
+            setattr(movie_data, key, value)
+
+        db.commit()
+        db.refresh(movie_data)
+
+        return {
+            "text" : "Movie info updated successfully",
+            "data" : movie_data
+        }
+    else:
+        return {
+            "text" : "Movie info not found"
+        }
